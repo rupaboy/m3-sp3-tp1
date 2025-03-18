@@ -12,7 +12,7 @@ app.use(express.json());
 connectDB();
 
 //Configuración de rutas
-app.use('/', router);
+app.use('/api', router);
 
 //Manejo de errores para rutas no encontradas
 app.use((req,res) => {
