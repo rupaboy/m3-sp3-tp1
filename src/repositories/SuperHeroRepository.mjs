@@ -26,6 +26,34 @@ class SuperHeroRepository extends IRepository {
             $expr: { $gte: [{ $size: "$poderes" }, 2 ]}
         });
     }
+
+    async agregarNuevo() { //Funciona
+        const hero = new superHero( {
+            nombreSuperHeroe: 'Prometeo',
+            nombreReal: 'Lucio Lux',
+            edad: 25,
+            planetaOrigen: 'Tierra',
+            debilidad: 'Aislamiento',
+            poderes: ['Energía infinita', 'Fisión nuclear', 'Termo-conducción', 'Salto atmosférico'],
+            aliados: ['Doomsday'],
+            enemigos: ['Superman'],
+            creador: 'Rupaboy'
+        });
+        return await hero.save()
+    }
+
+    async editar() { //Funciona, utiliza findOneAndUpdate() con 'after'.
+        return await superHero.findOneAndUpdate(
+            {nombreSuperHeroe: 'Prometeo' },
+            { $set: { edad: 50 } },
+            { returnDocument: 'after' }
+        );
+    }
+
+    async borrarId(id) { // Método predecible (se me ocurrió una idea en inglés)
+        return await superHero.findOneAndDelete(id)
+    }
+
 };
 
 export default new SuperHeroRepository();
