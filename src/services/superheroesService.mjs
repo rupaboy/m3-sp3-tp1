@@ -31,6 +31,14 @@ export async function agregarNuevoSuperheroe() {
     return await SuperHeroRepository.agregarNuevo();
 }
 
+export async function agregarNuevoTemplateSuperheroe() {
+    return await SuperHeroRepository.agregarNuevoTemplate();
+}
+
+export async function agregarNuevoArraySuperheroes() {
+    return await SuperHeroRepository.agregarNuevoArray();
+}
+
 export async function editarSuperheroePorId(id) {
     return await SuperHeroRepository.editar(id);
 }

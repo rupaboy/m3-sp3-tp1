@@ -1,79 +1,109 @@
 //Repositorio centralizado que implementa los métodos definidos en la interfáz,
 //realizando operaciones de datos uniformes y controladas con MongoDB
 
-import superHero from '../models/SuperHero.mjs';
+import SuperHero from '../models/SuperHero.mjs';
 import IRepository from '../repositories/IRepository.mjs';
+import { templateHeroeNuevo, arraySuperheroesBackup } from '../helper/templateHeroeNuevo.mjs';
 
 class SuperHeroRepository extends IRepository {
-    async obtenerPorId(id) {;  //Funciona
+    async obtenerPorId(id) {;  //OK
         console.log(id)
-        return await superHero.findById(id)
-        
+        return await SuperHero.findById(id)
     }
 
-    async obtenerTodos() {  //Funciona
-        return await superHero.find();
+    async obtenerTodos() {  //OK
+        return await SuperHero.find();
     }
     
-    async buscarPorAtributo(atributo, valor) { //Funciona
-        return await superHero.find({
+    async buscarPorAtributo(atributo, valor) { //Testing
+        return await SuperHero.find({
             [ atributo ]: valor
         });
     }
 
-    async obtenerMasPoderososTierra() { //Funciona VIEJO MAYORES-30
-        return await superHero.find({
+    async obtenerMasPoderososTierra() { //OK Old MAYORES-30
+        return await SuperHero.find({
             edad: { $gt: 30 },
             planetaOrigen: "Tierra",
             $expr: { $gte: [{ $size: "$poderes" }, 2 ]}
         });
     }
 
-    async obtenerMenosPoderososTierra() { //Funciona
-        return await superHero.find({
-            edad: { $lte: 30 },
+    async obtenerMenosPoderososTierra() { //TESTING
+        
+        return await SuperHero.find(
+            {
+            edad: { $lt: 110 }, //Si son más longevos no apareceran aquí.
             planetaOrigen: "Tierra",
-            $expr: { $lte: [{ $size: { $ifNull: ["$poderes", []] }}, 1 ]} 
-        });
-    }
-
-    async obtenerSinPoderesTierra() { //
-        return await superHero.find({
-            planetaOrigen: "Tierra",
-            $expr: { $eq: [ { $size: "$poderes"}, 0 ] } 
-        });
+            $or: [
+                { poderes: { $size: 1 } },  
+                { poderes: { $size: 0 } }
+            ]
+        })
     }
 
 
-    async agregarNuevo() { //Funciona
-        const hero = new superHero( {
-            nombreSuperHeroe: 'Prometeo',
-            nombreReal: 'Lucio Lux',
-            edad: 25,
-            planetaOrigen: 'Tierra',
-            debilidad: 'Aislamiento',
-            poderes: ['Energía infinita', 'Fisión nuclear', 'Termo-conducción', 'Salto atmosférico'],
-            aliados: ['Doomsday'],
-            enemigos: ['Superman'],
-            creador: 'Rupaboy'
-        });
-        return await hero.save()
+    async obtenerSinPoderesTierra() { 
+        return await SuperHero.find(
+            {
+                planetaOrigen: "Tierra",
+                poderes: { $size: 0 }
+            }
+        )
     }
 
-    async editarPorId(id) { //Funciona, devuelve 'after'.
-        return await superHero.findOneAndUpdate(
+    async agregarNuevo(newHero) {  //Función genérica para uso futuro.
+        const hero = new SuperHero(
+            {
+                nombreSuperHeroe: newHero.nombreSuperHeroe,
+                nombreReal: newHero.nombreReal,
+                edad: newHero.edad,
+                planetaOrigen: newHero.planetaOrigen,
+                debilidad: newHero.debilidad,
+                poderes: newHero.poderes,
+                aliados: newHero.aliados,
+                enemigos: newHero.enemigos,
+                creador: newHero.creador
+            }
+        );
+        console.log(hero)
+        return await hero.save();
+    }
+
+    async agregarNuevoTemplate() { 
+        
+        const hero = new SuperHero(templateHeroeNuevo);
+        console.log(hero)
+        return await hero.save();
+    }
+    
+    async agregarNuevoArray() { 
+
+        const superheroesCreados = [];
+        for (const heroe of arraySuperheroesBackup) {
+            const hero = new SuperHero(heroe);
+            const heroeNuevo = await hero.save();
+            superheroesCreados.push(heroeNuevo);
+            }
+            console.log('Todos los heroes han sido añadidos')
+            return superheroesCreados
+        }
+       
+
+    async editarPorId(id) { //Testing, devuelve 'after'.
+        return await SuperHero.findOneAndUpdate(
             { _id: id },
             { $set: { edad: 50 } },
             { returnDocument: 'after' }
         );
     }
 
-    async borrarPorId(id) { // Funciona
-        return await superHero.findByIdAndDelete(id)
+    async borrarPorId(id) { // Testing
+        return await SuperHero.findByIdAndDelete(id)
     }
 
-    async borrarPorNombre(nombreSuperheroe) { //Test
-        return await superHero.findOneAndDelete(
+    async borrarPorNombre(nombreSuperheroe) { //Testing
+        return await SuperHero.findOneAndDelete(
             { nombreSuperHeroe: nombreSuperheroe }
         )
     }

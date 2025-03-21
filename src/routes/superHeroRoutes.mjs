@@ -11,6 +11,8 @@ import {
     buscarSuperheroesPorAtributoController,
     buscarIdSuperheroesPorAtributoController,
     agregarNuevoSuperheroeController,
+    agregarNuevoTemplateSuperheroeController,
+    agregarNuevoArraySuperheroesController,
     editarSuperheroePorIdController,
     borrarSuperheroePorIdController,
     borrarSuperheroePorNombreController,
@@ -22,10 +24,10 @@ const router = express.Router();
 
 //GET
 //Collection
-router.get('/heroes', obtenerTodosLosSuperheroesController);
+router.get('/heroes', obtenerTodosLosSuperheroesController); // OK
 router.get('/heroes/id', obtenerTodosLosSuperheroesPorIdController);
-router.get('/heroes/buscar/atributo/:atributo/:valor', buscarSuperheroesPorAtributoController);
-router.get('/heroes/buscar/id/:atributo/:valor', buscarIdSuperheroesPorAtributoController);
+router.get('/heroes/atributo/:atributo/:valor', buscarSuperheroesPorAtributoController);
+router.get('/heroes/id/:atributo/:valor', buscarIdSuperheroesPorAtributoController);
 router.get('/heroes/mas-poderosos-tierra', obtenerSuperheroesMasPoderososTierraController);
 router.get('/heroes/menos-poderosos-tierra', obtenerSuperheroesMenosPoderososTierraController)
 router.get('/heroes/sin-poderes-tierra', obtenerSuperheroesSinPoderesTierraController)
@@ -33,6 +35,8 @@ router.get('/heroes/sin-poderes-tierra', obtenerSuperheroesSinPoderesTierraContr
 router.get('/heroes/id/:id', obtenerSuperheroePorIdController);
 //POST
 router.post('/heroes/nuevo', agregarNuevoSuperheroeController)
+router.post('/heroes/nuevo/template', agregarNuevoTemplateSuperheroeController)
+router.post('/heroes/nuevo/array', agregarNuevoArraySuperheroesController)
 //PUT
 router.put('/heroes/editar/id/:id', editarSuperheroePorIdController) 
 //DELETE

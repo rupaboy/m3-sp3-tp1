@@ -9,6 +9,8 @@ import {
     obtenerSuperheroesSinPoderesTierra,
     obtenerSuperheroePorId,
     agregarNuevoSuperheroe,
+    agregarNuevoTemplateSuperheroe,
+    agregarNuevoArraySuperheroes,
     editarSuperheroePorId,
     borrarSuperheroePorId,
     borrarSuperheroePorNombre,
@@ -117,6 +119,7 @@ export async function obtenerSuperheroesMasPoderososTierraController(req, res) {
 export async function obtenerSuperheroesMenosPoderososTierraController(req, res) {
     try {
         const superheroes = await obtenerSuperheroesMenosPoderososTierra();
+        console.log(superheroes)
         if (superheroes.length === 0) {
             return res.status(404).send(
                 { mensaje: 'No se encontró a los superhéroes menos poderosos en la Tierra' });
@@ -162,6 +165,43 @@ export async function agregarNuevoSuperheroeController(req, res) {
             error: error.message });
     }
 }
+
+export async function agregarNuevoTemplateSuperheroeController(req, res) {
+    try {
+        
+        const superheroeCreado = await agregarNuevoTemplateSuperheroe()
+        if (superheroeCreado.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró un superhéroe creado por template.' });
+        }
+        const superheroeFormateado = renderizarSuperheroe(superheroeCreado);
+        res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send (
+            { mensaje: 'Error al crear superhéroe por template.',
+            error: error.message });
+    }
+}
+
+export async function agregarNuevoArraySuperheroesController(req, res) {
+    try {
+        
+        const superheroesCreados = await agregarNuevoArraySuperheroes()
+        console.log(superheroesCreados.length)
+        if (superheroesCreados.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontraron superhéroes creados por array.' });
+        }
+        const superheroesFormateados = renderizarListaSuperheroes(superheroesCreados);
+        res.status(200).json(superheroesFormateados);
+    } catch (error) {
+        res.status(500).send (
+            { mensaje: 'Error al crear superhéroes por array.',
+            error: error.message });
+    }
+}
+
+
 
 
 export async function editarSuperheroePorIdController(req, res) {
