@@ -2,18 +2,23 @@
 //Y utilizando las vistas para presentar los datos
 
 import {
-    obtenerSuperheroePorId,
     obtenerTodosLosSuperheroes,
     buscarSuperheroesPorAtributo,
-    obtenerSuperheroesMayoresDe30,
+    obtenerSuperheroesMasPoderososTierra,
+    obtenerSuperheroesMenosPoderososTierra,
+    obtenerSuperheroesSinPoderesTierra,
+    obtenerSuperheroePorId,
     agregarNuevoSuperheroe,
-    editarSuperheroe,
-    borrarIdSuperheroe
+    editarSuperheroePorId,
+    borrarSuperheroePorId,
+
     } from '../services/superheroesService.mjs';
 
 import {
     renderizarSuperheroe,
-    renderizarListaSuperheroes} from '../views/responseView.mjs';
+    renderizarSuperheroesPorId,
+    renderizarListaSuperheroes,
+    renderizarSuperheroePorId} from '../views/responseView.mjs';
 
     
 export async function obtenerSuperheroePorIdController(req, res) {
@@ -23,9 +28,23 @@ export async function obtenerSuperheroePorIdController(req, res) {
         if (!superheroe) {
             return res.status(404).send({ mensaje: 'Superheroe no encontrado' });
         }
-
-        const superheroeFormateado = renderizarSuperheroe(superheroe);
+        console.log(superheroe)
+        const superheroeFormateado = renderizarSuperheroePorId(superheroe);
         res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al obtener el superhéroe',
+            error: error.message });
+    }
+}
+
+export async function obtenerTodosLosSuperheroesPorIdController(req, res) {
+    try {
+        const superheroes = await obtenerTodosLosSuperheroes(); //TEST
+        if (!superheroes) {
+            return res.status(404).send({ mensaje: 'No se encontraron Superheroes, ni sus _id.' });
+        }
+        const superheroesFormateadosPorId = renderizarSuperheroesPorId(superheroes); //Nueva Vista con atributo ID
+        res.status(200).json(superheroesFormateadosPorId);
     } catch (error) {
         res.status(500).send({ mensaje: 'Error al obtener el superhéroe',
             error: error.message });
@@ -62,18 +81,50 @@ export async function buscarSuperheroesPorAtributoController(req, res) {
 }
 
 
-export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
+export async function obtenerSuperheroesMasPoderososTierraController(req, res) {
     try {
-        const superheroes = await obtenerSuperheroesMayoresDe30();
+        const superheroes = await obtenerSuperheroesMasPoderososTierra();
         if (superheroes.length === 0) {
             return res.status(404).send(
-                { mensaje: 'No se encontraron superhéroes mayores de 30 años' });
+                { mensaje: 'No se encontró a los superhéroes más poderosos de la Tierra' });
         }
         const superheroesFormateados = renderizarListaSuperheroes(superheroes);
         res.status(200).json(superheroesFormateados);
     } catch (error) {
         res.status(500).send(
-            { mensaje: 'Error al obtener superhéroes mayores de 30 años',
+            { mensaje: 'Error al obtener los superhéroes más poderosos de la Tierra',
+            error: error.message });
+    }
+}
+
+export async function obtenerSuperheroesMenosPoderososTierraController(req, res) {
+    try {
+        const superheroes = await obtenerSuperheroesMenosPoderososTierra();
+        if (superheroes.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró a los superhéroes menos poderosos de la Tierra' });
+        }
+        const superheroesFormateados = renderizarListaSuperheroes(superheroes);
+        res.status(200).json(superheroesFormateados);
+    } catch (error) {
+        res.status(500).send(
+            { mensaje: 'Error al obtener los superhéroes menos poderosos de la Tierra',
+            error: error.message });
+    }
+}
+
+export async function obtenerSuperheroesSinPoderesTierraController(req, res) {
+    try {
+        const superheroes = await obtenerSuperheroesSinPoderesTierra();
+        if (superheroes.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró a los superhéroes menos poderosos de la Tierra' });
+        }
+        const superheroesFormateados = renderizarListaSuperheroes(superheroes);
+        res.status(200).json(superheroesFormateados);
+    } catch (error) {
+        res.status(500).send(
+            { mensaje: 'Error al obtener los superhéroes menos poderosos de la Tierra',
             error: error.message });
     }
 }
@@ -96,9 +147,10 @@ export async function agregarNuevoSuperheroeController(req, res) {
 }
 
 
-export async function editarSuperheroeController(req, res) {
+export async function editarSuperheroePorIdController(req, res) {
     try {
-        const superheroeEditado = await editarSuperheroe()
+        const {id} = req.params;
+        const superheroeEditado = await editarSuperheroePorId(id)
         console.log(superheroeEditado)
         if (superheroeEditado.length === 0) {
             return res.status(404).send(
@@ -116,7 +168,7 @@ export async function editarSuperheroeController(req, res) {
 export async function borrarSuperheroePorIdController(req, res) {
     try {
         const {id} = req.params;
-        const superheroeBorrado = await borrarIdSuperheroe(id);
+        const superheroeBorrado = await borrarSuperheroePorId(id);
         console.log(superheroeBorrado)
         if (superheroeBorrado.lenght === 0) {
             return res.status(404).send(

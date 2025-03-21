@@ -6,7 +6,9 @@ import IRepository from '../repositories/IRepository.mjs';
 
 class SuperHeroRepository extends IRepository {
     async obtenerPorId(id) {;  //Funciona
+        console.log(id)
         return await superHero.findById(id)
+        
     }
 
     async obtenerTodos() {  //Funciona
@@ -19,13 +21,29 @@ class SuperHeroRepository extends IRepository {
         });
     }
 
-    async obtenerMayoresDe30() { //Funciona
+    async obtenerMasPoderososTierra() { //Funciona VIEJO MAYORES-30
         return await superHero.find({
             edad: { $gt: 30 },
             planetaOrigen: "Tierra",
             $expr: { $gte: [{ $size: "$poderes" }, 2 ]}
         });
     }
+
+    async obtenerMenosPoderososTierra() { //Funciona
+        return await superHero.find({
+            edad: { $lte: 40 },
+            planetaOrigen: "Tierra",
+            $expr: { $lte: [{ $size: "$poderes" }, 1 ]}
+        });
+    }
+
+    async obtenerSinPoderesTierra() { //
+        return await superHero.find({
+            planetaOrigen: "Tierra",
+            $expr: { $eq: []} //Primer test
+        });
+    }
+
 
     async agregarNuevo() { //Funciona
         const hero = new superHero( {
@@ -42,16 +60,16 @@ class SuperHeroRepository extends IRepository {
         return await hero.save()
     }
 
-    async editar() { //Funciona, utiliza findOneAndUpdate() con 'after'.
+    async editarPorId(id) { //Funciona, utiliza findOneAndUpdate() con 'after'.
         return await superHero.findOneAndUpdate(
-            {nombreSuperHeroe: 'Prometeo' },
+            { _id: id },
             { $set: { edad: 50 } },
             { returnDocument: 'after' }
         );
     }
 
-    async borrarId(id) { // Método predecible (se me ocurrió una idea en inglés)
-        return await superHero.findOneAndDelete(id)
+    async borrarPorId(id) { // Método predecible (se me ocurrió una idea en inglés)
+        return await superHero.findByIdAndDelete(id)
     }
 
 };

@@ -3,12 +3,14 @@
 import express from 'express';
 
 import {
-    obtenerSuperheroePorIdController,
+    obtenerTodosLosSuperheroesPorIdController,
     obtenerTodosLosSuperheroesController,
+    obtenerSuperheroePorIdController,
+    obtenerSuperheroesMasPoderososTierraController,
+    obtenerSuperheroesMenosPoderososTierraController,
     buscarSuperheroesPorAtributoController,
-    obtenerSuperheroesMayoresDe30Controller,
     agregarNuevoSuperheroeController,
-    editarSuperheroeController,
+    editarSuperheroePorIdController,
     borrarSuperheroePorIdController,
     //borrarSuperheroePorNombreController
     
@@ -16,14 +18,21 @@ import {
 
 const router = express.Router();
 
+//GET
+//Collection
 router.get('/heroes', obtenerTodosLosSuperheroesController);
-router.get('/heroes/buscar-id/:id', obtenerSuperheroePorIdController);
+router.get('/heroes/id', obtenerTodosLosSuperheroesPorIdController);
 router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
-router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
-
+router.get('/heroes/mas-poderosos-tierra', obtenerSuperheroesMasPoderososTierraController);
+router.get('/heroes/menos-poderosos-tierra', obtenerSuperheroesMenosPoderososTierraController)
+//Document
+router.get('/heroes/id/:id', obtenerSuperheroePorIdController);
+//POST
 router.post('/heroes/nuevo', agregarNuevoSuperheroeController)
-router.put('/heroes/editar', editarSuperheroeController)
-router.delete('/heroes/borrar-id/:id', borrarSuperheroePorIdController)
+//PUT
+router.put('/heroes/editar/id/:id', editarSuperheroePorIdController) 
+//DELETE
+router.delete('/heroes/borrar/id/:id', borrarSuperheroePorIdController)
 //router.delete('heroes/borrar-nombre/:nombre', borrarSuperheroePorNombreController)
 
 export default router;
