@@ -31,16 +31,16 @@ class SuperHeroRepository extends IRepository {
 
     async obtenerMenosPoderososTierra() { //Funciona
         return await superHero.find({
-            edad: { $lte: 40 },
+            edad: { $lte: 30 },
             planetaOrigen: "Tierra",
-            $expr: { $lte: [{ $size: "$poderes" }, 1 ]}
+            $expr: { $lte: [{ $size: { $ifNull: ["$poderes", []] }}, 1 ]} 
         });
     }
 
     async obtenerSinPoderesTierra() { //
         return await superHero.find({
             planetaOrigen: "Tierra",
-            $expr: { $eq: []} //Primer test
+            $expr: { $eq: [ { $size: "$poderes"}, 0 ] } 
         });
     }
 
@@ -60,7 +60,7 @@ class SuperHeroRepository extends IRepository {
         return await hero.save()
     }
 
-    async editarPorId(id) { //Funciona, utiliza findOneAndUpdate() con 'after'.
+    async editarPorId(id) { //Funciona, devuelve 'after'.
         return await superHero.findOneAndUpdate(
             { _id: id },
             { $set: { edad: 50 } },
@@ -68,8 +68,14 @@ class SuperHeroRepository extends IRepository {
         );
     }
 
-    async borrarPorId(id) { // Método predecible (se me ocurrió una idea en inglés)
+    async borrarPorId(id) { // Funciona
         return await superHero.findByIdAndDelete(id)
+    }
+
+    async borrarPorNombre(nombreSuperheroe) { //Test
+        return await superHero.findOneAndDelete(
+            { nombreSuperHeroe: nombreSuperheroe }
+        )
     }
 
 };

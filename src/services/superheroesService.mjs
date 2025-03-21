@@ -38,3 +38,8 @@ export async function editarSuperheroePorId(id) {
 export async function borrarSuperheroePorId(id) {
     return await SuperHeroRepository.borrarPorId(id); 
 }
+
+
+export async function borrarSuperheroePorNombre(nombreSuperheroe) {
+    return await SuperHeroRepository.borrarPorNombre(nombreSuperheroe); 
+}

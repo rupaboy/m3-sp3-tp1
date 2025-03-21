@@ -1,9 +1,6 @@
 //Define las funciones de presentación de datos.
 //Organiza la información de los superhéroes en un formato estructurado.
 
-export function renderizarSuperheroesPorId(superheroes) {
-    return superheroes.map(superheroe => renderizarSuperheroePorId(superheroe))};
-
 export function renderizarSuperheroe(superheroe) {
     return {
         "Nombre": superheroe.nombreSuperHeroe,
@@ -31,7 +28,11 @@ export function renderizarSuperheroePorId(superheroe) { //Nueva Vista para ver i
     };
 }
 
+//Para Renderizar Arrays
 
 export function renderizarListaSuperheroes(superheroes) {
     return superheroes.map(superheroe => renderizarSuperheroe(superheroe));
 }
+
+export function renderizarListaSuperheroesPorId(superheroes) {
+    return superheroes.map(superheroe => renderizarSuperheroePorId(superheroe))};
