@@ -8,16 +8,17 @@ import {
     obtenerSuperheroePorIdController,
     obtenerSuperheroesMasPoderososTierraController,
     obtenerSuperheroesMenosPoderososTierraController,
+    obtenerSuperheroesSinPoderesTierraController,
     buscarSuperheroesPorAtributoController,
     buscarIdSuperheroesPorAtributoController,
-    agregarNuevoSuperheroeController,
+    //agregarNuevoSuperheroeController,
     agregarNuevoTemplateSuperheroeController,
     agregarNuevoArraySuperheroesController,
     editarSuperheroePorIdAtributoValorController,
     //editarSuperheroePorIdController,
     borrarSuperheroePorIdController,
     borrarSuperheroePorNombreController,
-    obtenerSuperheroesSinPoderesTierraController
+    
     
 } from '../controllers/superheroesController.mjs';
 
@@ -29,14 +30,14 @@ router.get('/heroes', obtenerTodosLosSuperheroesController); // OK
 router.get('/heroes/id', obtenerTodosLosSuperheroesPorIdController);
 router.get('/heroes/atributo/:atributo/:valor', buscarSuperheroesPorAtributoController);
 router.get('/heroes/id/:atributo/:valor', buscarIdSuperheroesPorAtributoController);
-router.get('/heroes/mas-poderosos-tierra', obtenerSuperheroesMasPoderososTierraController);
-router.get('/heroes/mas-poderosos-universo', obtenerSuperheroesMasPoderososTierraController);
-router.get('/heroes/menos-poderosos-tierra', obtenerSuperheroesMenosPoderososTierraController)
-router.get('/heroes/sin-poderes-tierra', obtenerSuperheroesSinPoderesTierraController)
+router.get('/heroes/mas-poderosos/tierra', obtenerSuperheroesMasPoderososTierraController);
+router.get('/heroes/menos-poderosos/tierra', obtenerSuperheroesMenosPoderososTierraController);
+router.get('/heroes/sin-poderes/tierra', obtenerSuperheroesSinPoderesTierraController);
+
 //Document
 router.get('/heroes/id/:id', obtenerSuperheroePorIdController);
 //POST
-router.post('/heroes/nuevo', agregarNuevoSuperheroeController)
+//router.post('/heroes/nuevo', agregarNuevoSuperheroeController) 
 router.post('/heroes/nuevo/template', agregarNuevoTemplateSuperheroeController) //Template ../helper/templateHeroeNuevo.mjs
 router.post('/heroes/nuevo/array', agregarNuevoArraySuperheroesController) //Array ../helper/templateHeroeNuevo.mjs
 //PUT
