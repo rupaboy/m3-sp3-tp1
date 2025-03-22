@@ -4,15 +4,24 @@
 import {
     obtenerTodosLosSuperheroes,
     buscarSuperheroesPorAtributo,
-    obtenerSuperheroesMasPoderososTierra,
-    obtenerSuperheroesMenosPoderososTierra,
-    obtenerSuperheroesSinPoderesTierra,
+    obtenerSuperheroesMasPoderosos,
+    obtenerSuperheroesMasPoderososPlaneta,
+    obtenerSuperheroesMenosPoderosos,
+    obtenerSuperheroesMenosPoderososPlaneta,
+    obtenerSuperheroesSinPoderes,
+    obtenerSuperheroesSinPoderesPlaneta,
     obtenerSuperheroePorId,
     agregarNuevoSuperheroe,
     agregarNuevoTemplateSuperheroe,
     agregarNuevoArraySuperheroes,
     editarSuperheroePorId,
     editarSuperheroePorIdAtributoValor,
+    editarSuperheroePorIdAgregarPoder,
+    editarSuperheroePorIdQuitarPoder,
+    editarSuperheroePorIdAgregarAliado,
+    editarSuperheroePorIdQuitarAliado,
+    editarSuperheroePorIdAgregarEnemigo,
+    editarSuperheroePorIdQuitarEnemigo,
     borrarSuperheroePorId,
     borrarSuperheroePorNombre,
 
@@ -102,51 +111,103 @@ export async function buscarIdSuperheroesPorAtributoController(req, res) {
     }
 }
 
-export async function obtenerSuperheroesMasPoderososTierraController(req, res) {
+export async function obtenerSuperheroesMasPoderososController(req, res) {
     try {
-        const superheroes = await obtenerSuperheroesMasPoderososTierra();
+        const superheroes = await obtenerSuperheroesMasPoderosos();
         if (superheroes.length === 0) {
             return res.status(404).send(
-                { mensaje: 'No se encontró a los superhéroes más poderosos en la Tierra' });
+                { mensaje: 'No se encontró a los superhéroes más poderosos.' });
         }
         const superheroesFormateados = renderizarListaSuperheroes(superheroes);
         res.status(200).json(superheroesFormateados);
     } catch (error) {
         res.status(500).send(
-            { mensaje: 'Error al obtener los superhéroes más poderosos en la Tierra',
+            { mensaje: 'Error al obtener los superhéroes más poderosos.',
             error: error.message });
     }
 }
 
-export async function obtenerSuperheroesMenosPoderososTierraController(req, res) {
+export async function obtenerSuperheroesMasPoderososPlanetaController(req, res) {
     try {
-        const superheroes = await obtenerSuperheroesMenosPoderososTierra();
+        const {planeta} = req.params;
+        const superheroes = await obtenerSuperheroesMasPoderososPlaneta(planeta);
+        if (superheroes.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró a los superhéroes más poderosos de ese planeta.' });
+        }
+        const superheroesFormateados = renderizarListaSuperheroes(superheroes);
+        res.status(200).json(superheroesFormateados);
+    } catch (error) {
+        res.status(500).send(
+            { mensaje: 'Error al obtener los superhéroes más poderosos de ese planeta.',
+            error: error.message });
+    }
+}
+
+export async function obtenerSuperheroesMenosPoderososController(req, res) {
+    try {
+        const superheroes = await obtenerSuperheroesMenosPoderosos();
         console.log(superheroes)
         if (superheroes.length === 0) {
             return res.status(404).send(
-                { mensaje: 'No se encontró a los superhéroes menos poderosos en la Tierra' });
+                { mensaje: 'No se encontró a los superhéroes menos poderosos' });
         }
         const superheroesFormateados = renderizarListaSuperheroes(superheroes);
         res.status(200).json(superheroesFormateados);
     } catch (error) {
         res.status(500).send(
-            { mensaje: 'Error al obtener los superhéroes menos poderosos en la Tierra',
+            { mensaje: 'Error al obtener los superhéroes menos poderosos',
             error: error.message });
     }
 }
 
-export async function obtenerSuperheroesSinPoderesTierraController(req, res) {
+export async function obtenerSuperheroesMenosPoderososPlanetaController(req, res) {
     try {
-        const superheroes = await obtenerSuperheroesSinPoderesTierra();
+        const {planeta} = req.params;
+        const superheroes = await obtenerSuperheroesMenosPoderososPlaneta(planeta);
         if (superheroes.length === 0) {
             return res.status(404).send(
-                { mensaje: 'No se encontraron superhéroes sin poderes en la Tierra' });
+                { mensaje: 'No se encontró a los superhéroes menos poderosos de ese planeta.' });
         }
         const superheroesFormateados = renderizarListaSuperheroes(superheroes);
         res.status(200).json(superheroesFormateados);
     } catch (error) {
         res.status(500).send(
-            { mensaje: 'Error al obtener superhéroes sin poderes en la Tierra',
+            { mensaje: 'Error al obtener los superhéroes menos poderosos de ese planeta.',
+            error: error.message });
+    }
+}
+
+export async function obtenerSuperheroesSinPoderesController(req, res) {
+    try {
+        const superheroes = await obtenerSuperheroesSinPoderes();
+        if (superheroes.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontraron superhéroes sin poderes.' });
+        }
+        const superheroesFormateados = renderizarListaSuperheroes(superheroes);
+        res.status(200).json(superheroesFormateados);
+    } catch (error) {
+        res.status(500).send(
+            { mensaje: 'Error al obtener superhéroes sin poderes.',
+            error: error.message });
+    }
+}
+
+
+export async function obtenerSuperheroesSinPoderesPlanetaController(req, res) {
+    try {
+        const {planeta} = req.params;
+        const superheroes = await obtenerSuperheroesSinPoderesPlaneta(planeta);
+        if (superheroes.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró a los superhéroes sin poderes de ese planeta.' });
+        }
+        const superheroesFormateados = renderizarListaSuperheroes(superheroes);
+        res.status(200).json(superheroesFormateados);
+    } catch (error) {
+        res.status(500).send(
+            { mensaje: 'Error al obtener los superhéroes sin poderes de ese planeta.',
             error: error.message });
     }
 }
@@ -203,9 +264,6 @@ export async function agregarNuevoArraySuperheroesController(req, res) {
     }
 }
 
-
-
-
 export async function editarSuperheroePorIdController(req, res) {
     try {
         const {id} = req.params;
@@ -232,7 +290,6 @@ export async function editarSuperheroePorIdAtributoValorController(req, res) {
             return res.status(404).send(
                 { mensaje: 'No se encontraron superhéroes con ese atributo' });
         }
-
         const superheroeFormateado = renderizarSuperheroe(superheroe);
         res.status(200).json(superheroeFormateado);
     } catch (error) {
@@ -241,8 +298,107 @@ export async function editarSuperheroePorIdAtributoValorController(req, res) {
     }
 }
 
+export async function editarSuperheroePorIdAgregarPoderController(req, res) {
+    try {
+        const {id, poder} = req.params;
+        const superheroe = await editarSuperheroePorIdAgregarPoder(id, poder);
+        if (superheroe.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró un superhéroe para agregarle un poder' });
+        }
 
+        const superheroeFormateado = renderizarSuperheroe(superheroe);
+        res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al buscar un superhéroe para agregarle un poder',
+            error: error.message });
+    }
+}
 
+export async function editarSuperheroePorIdQuitarPoderController(req, res) {
+    try {
+        const {id, poder} = req.params;
+        const superheroe = await editarSuperheroePorIdQuitarPoder(id, poder);
+        if (superheroe.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró un superhéroe para quitarle un poder' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroe);
+        res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al buscar un superhéroe para quitarle un poder',
+            error: error.message });
+    }
+}
+
+export async function editarSuperheroePorIdAgregarAliadoController(req, res) {
+    try {
+        const {id, aliado} = req.params;
+        const superheroe = await editarSuperheroePorIdAgregarAliado(id, aliado);
+        if (superheroe.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró un superhéroe para agregarle un aliado' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroe);
+        res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al buscar un superhéroe para agregarle un aliado',
+            error: error.message });
+    }
+}
+
+export async function editarSuperheroePorIdQuitarAliadoController(req, res) {
+    try {
+        const {id, aliado} = req.params;
+        const superheroe = await editarSuperheroePorIdQuitarAliado(id, aliado);
+        if (superheroe.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró un superhéroe para quitarle un aliado' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroe);
+        res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al buscar un superhéroe para quitarle un aliado',
+            error: error.message });
+    }
+}
+
+export async function editarSuperheroePorIdAgregarEnemigoController(req, res) {
+    try {
+        const {id, enemigo} = req.params;
+        const superheroe = await editarSuperheroePorIdAgregarEnemigo(id, enemigo);
+        if (superheroe.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró un superhéroe para agregarle un enemigo' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroe);
+        res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al buscar un superhéroe para agregarle un enemigo',
+            error: error.message });
+    }
+}
+
+export async function editarSuperheroePorIdQuitarEnemigoController(req, res) {
+    try {
+        const {id, enemigo} = req.params;
+        const superheroe = await editarSuperheroePorIdQuitarEnemigo(id, enemigo);
+        if (superheroe.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontró un superhéroe para quitarle un enemigo' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroe);
+        res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al buscar un superhéroe para quitarle un enemigo',
+            error: error.message });
+    }
+}
 
 
 export async function borrarSuperheroePorIdController(req, res) {

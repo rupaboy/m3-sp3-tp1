@@ -21,32 +21,57 @@ class SuperHeroRepository extends IRepository {
         });
     }
 
-    async obtenerMasPoderososTierra() { //OK Old MAYORES-30
+    async obtenerMasPoderosos() { //OK Old MAYORES-30
         return await SuperHero.find({
-            edad: { $gt: 30 },
-            planetaOrigen: "Tierra",
-            $expr: { $gte: [{ $size: "$poderes" }, 2 ]}
+            $expr: { $gte: [{ $size: "$poderes" }, 5 ]}
         });
     }
 
-    async obtenerMenosPoderososTierra() { //TESTING
+    async obtenerMasPoderososPlaneta( planeta ) { 
+        return await SuperHero.find({
+                edad: { $gt: 30 },
+                planetaOrigen: planeta,
+                $expr: { $gte: [{ $size: "$poderes" }, 2 ]}
+            });
+    }
+
+    async obtenerMenosPoderosos() { //TESTING
         
         return await SuperHero.find(
             {
-            edad: { $lt: 110 }, //Si son más longevos no apareceran aquí.
-            planetaOrigen: "Tierra",
-            $or: [
-                { poderes: { $size: 1 } },  
+                edad: { $lt: 110 },
+                $or: [
+                { poderes: { $size: 1 } },
                 { poderes: { $size: 0 } }
-            ]
+                ]
         })
     }
 
-
-    async obtenerSinPoderesTierra() { 
+    async obtenerMenosPoderososPlaneta( planeta ) { 
         return await SuperHero.find(
             {
-                planetaOrigen: "Tierra",
+                edad: { $lt: 110 }, //Si son más longevos no apareceran aquí.
+                planetaOrigen: planeta,
+                $or: [
+                { poderes: { $size: 1 } },  
+                { poderes: { $size: 0 } }
+                ]
+            }
+        )
+    }
+
+    async obtenerSinPoderes() { 
+        return await SuperHero.find(
+            {
+                poderes: { $size: 0 }
+            }
+        )
+    }
+
+    async obtenerSinPoderesPlaneta( planeta ) { 
+        return await SuperHero.find(
+            {
+                planetaOrigen: planeta,
                 poderes: { $size: 0 }
             }
         )
@@ -102,6 +127,54 @@ class SuperHeroRepository extends IRepository {
         return await SuperHero.findOneAndUpdate(
             { _id: id },
             { $set: { [atributo]: valor } },
+            { returnDocument: 'after' }
+        );
+    }
+    
+    async editarPorIdAgregarPoder(id, poder) { //Testing, devuelve 'after'.
+        return await SuperHero.findOneAndUpdate(
+            { _id: id },
+            { $push: { poderes: poder } },
+            { returnDocument: 'after' }
+        );
+    }
+
+    async editarPorIdAgregarAliado(id, aliado) { //Testing, devuelve 'after'.
+        return await SuperHero.findOneAndUpdate(
+            { _id: id },
+            { $push: { aliados: aliado } },
+            { returnDocument: 'after' }
+        );
+    }
+    
+    async editarPorIdAgregarEnemigo(id, enemigo) { //Testing, devuelve 'after'.
+        return await SuperHero.findOneAndUpdate(
+            { _id: id },
+            { $push: { enemigos: enemigo } },
+            { returnDocument: 'after' }
+        );
+    }
+
+    async editarPorIdQuitarPoder(id, poder) { //Testing, devuelve 'after'.
+        return await SuperHero.findOneAndUpdate(
+            { _id: id },
+            { $pull: { poderes: poder } },
+            { returnDocument: 'after' }
+        );
+    }
+
+    async editarPorIdQuitarAliado(id, aliado) { //Testing, devuelve 'after'.
+        return await SuperHero.findOneAndUpdate(
+            { _id: id },
+            { $pull: { aliados: aliado } },
+            { returnDocument: 'after' }
+        );
+    }
+
+    async editarPorIdQuitarEnemigo(id, enemigo) { //Testing, devuelve 'after'.
+        return await SuperHero.findOneAndUpdate(
+            { _id: id },
+            { $pull: { enemigos: enemigo } },
             { returnDocument: 'after' }
         );
     }
