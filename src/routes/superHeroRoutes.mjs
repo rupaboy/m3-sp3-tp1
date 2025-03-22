@@ -37,7 +37,6 @@ const router = express.Router();
 //Collection
 router.get('/heroes', obtenerTodosLosSuperheroesController);
 router.get('/heroes/id', obtenerTodosLosSuperheroesPorIdController);
-router.get('/heroes/:atributo/:valor', buscarSuperheroesPorAtributoController);
 router.get('/heroes/id/:atributo/:valor', buscarIdSuperheroesPorAtributoController);
 router.get('/heroes/mas-poderosos/', obtenerSuperheroesMasPoderososController);
 router.get('/heroes/mas-poderosos/:planeta', obtenerSuperheroesMasPoderososPlanetaController);
@@ -45,6 +44,7 @@ router.get('/heroes/menos-poderosos/', obtenerSuperheroesMenosPoderososControlle
 router.get('/heroes/menos-poderosos/:planeta', obtenerSuperheroesMenosPoderososPlanetaController);
 router.get('/heroes/sin-poderes/', obtenerSuperheroesSinPoderesController);
 router.get('/heroes/sin-poderes/:planeta', obtenerSuperheroesSinPoderesPlanetaController);
+router.get('/heroes/:atributo/:valor', buscarSuperheroesPorAtributoController);
 //Document
 router.get('/heroes/:id', obtenerSuperheroePorIdController);
 

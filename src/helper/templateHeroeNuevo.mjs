@@ -1,39 +1,191 @@
 export const templateHeroeNuevo = {
-    nombreSuperHeroe: 'Carloncho',
+    nombreSuperHeroe: 'SuperLoncho',
     nombreReal: 'Charles Longgio',
     edad: 42,
     planetaOrigen: 'Tierra',
     debilidad: 'Ninguna conocida',
-    poderes: [],
+    poderes: ['No necesitar poderes'],
     aliados: ['Superman'],
     enemigos: ['Vizcachas'],
     creador: 'Rupaboy'
 };
 
-export const arraySuperheroesBackup = [
-    {
-      nombreSuperHeroe: 'Array-Man',
-      nombreReal: 'Backup Test',
-      edad: 1,
-      planetaOrigen: 'MongoDB',
-      debilidad: 'Puede no ser un array',
-      poderes: [ 'No se aun', 'Modularizar', 'Menos trabajo de mantenimiento' ],
-      aliados: [ 'Rupaboy' ],
-      enemigos: [ 'Rupaboy' ],
-      creador: 'Rupaboy'
-  },
-  {
-    nombreSuperHeroe: 'Array-Man II La pesadilla del Array',
-      nombreReal: 'Backup Test',
-      edad: 1,
-      planetaOrigen: 'MongoDB',
-      debilidad: 'Puede no ser un array',
-      poderes: [ 'No se aun', 'Modularizar', 'Menos trabajo de mantenimiento' ],
-      aliados: [ 'Rupaboy' ],
-      enemigos: [ 'Rupaboy' ],
-      creador: 'Rupaboy'
-  }
-      /*  {
+    export const arraySuperheroesBackup = [
+            {
+              nombreSuperHeroe: 'She-Ra2',
+              nombreReal: 'Adora',
+              edad: 18,
+              planetaOrigen: 'Etheria',
+              debilidad: 'La espada de She-Ra puede ser vulnerable a la magia oscura',
+              poderes: [
+                'Super fuerza',
+                'Vuelo',
+                'Invocar el poder de la espada de She-Ra'
+              ],
+              aliados: ['He-Man', 'Catra', 'Bow', 'Glimmer', 'Mermista'],
+              enemigos: ['Hordak', 'Shadow Weaver', 'Skeletor'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Glimmer',
+              nombreReal: 'Glimmer',
+              edad: 16,
+              planetaOrigen: 'Etheria',
+              debilidad: 'Falta de energía puede reducir el poder de sus luces',
+              poderes: [
+                'Control de la luz',
+                'Crear destellos cegadores',
+                'Teletransportación corta distancia'
+              ],
+              aliados: ['She-Ra', 'Bow', 'Catra', 'Mermista'],
+              enemigos: ['Hordak', 'Shadow Weaver'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Catra',
+              nombreReal: 'Catra',
+              edad: 17,
+              planetaOrigen: 'Etheria',
+              debilidad: 'Su amor por Adora la hace vulnerable',
+              poderes: [
+                'Transformación en pantera',
+                'Agilidad y velocidad aumentadas',
+                'Fuerza sobrehumana'
+              ],
+              aliados: ['Hordak', 'Entrapta', 'Scorpia'],
+              enemigos: ['She-Ra', 'Bow', 'Glimmer'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Bow',
+              nombreReal: 'Bow',
+              edad: 20,
+              planetaOrigen: 'Etheria',
+              debilidad: 'No tiene poderes mágicos',
+              poderes: [
+                'Arquería experta',
+                'Disparar flechas especiales (como las de energía)',
+                'Gran resistencia física'
+              ],
+              aliados: ['She-Ra', 'Glimmer', 'Mermista', 'Catra'],
+              enemigos: ['Hordak', 'Shadow Weaver'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Mermista',
+              nombreReal: 'Mermista',
+              edad: 19,
+              planetaOrigen: 'Etheria',
+              debilidad: 'Vulnerable en tierra firme, sin agua',
+              poderes: [
+                'Control sobre el agua',
+                'Transformación en sirena',
+                'Nadar a gran velocidad'
+              ],
+              aliados: ['She-Ra', 'Glimmer', 'Bow'],
+              enemigos: ['Hordak', 'Shadow Weaver'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Frosta',
+              nombreReal: 'Frosta',
+              edad: 16,
+              planetaOrigen: 'Etheria',
+              debilidad: 'Temperatura cálida reduce sus poderes',
+              poderes: [
+                'Control sobre el hielo',
+                'Crear tormentas de nieve',
+                'Inmunidad al frío'
+              ],
+              aliados: ['She-Ra', 'Glimmer', 'Mermista'],
+              enemigos: ['Hordak', 'Shadow Weaver'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Spinnerella',
+              nombreReal: 'Spinnerella',
+              edad: 18,
+              planetaOrigen: 'Etheria',
+              debilidad: 'Su poder depende del giro, si pierde ritmo queda vulnerable',
+              poderes: [
+                'Giro de alta velocidad',
+                'Control de vientos',
+                'Crear ráfagas de aire'
+              ],
+              aliados: ['She-Ra', 'Glimmer', 'Mermista'],
+              enemigos: ['Hordak', 'Shadow Weaver'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Perfuma',
+              nombreReal: 'Perfuma',
+              edad: 17,
+              planetaOrigen: 'Etheria',
+              debilidad: 'Su poder está ligado a la naturaleza, si se daña pierde fuerza',
+              poderes: [
+                'Control sobre las plantas',
+                'Crear jardines y flores con poderes curativos',
+                'Comunicación con la flora'
+              ],
+              aliados: ['She-Ra', 'Glimmer', 'Bow', 'Mermista'],
+              enemigos: ['Hordak', 'Shadow Weaver'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Entrapta',
+              nombreReal: 'Entrapta',
+              edad: 22,
+              planetaOrigen: 'Etheria',
+              debilidad: 'Su obsesión con la tecnología puede nublar su juicio',
+              poderes: [
+                'Control sobre la tecnología',
+                'Invención de dispositivos complejos',
+                'Manejo avanzado de máquinas'
+              ],
+              aliados: ['Hordak', 'Catra', 'Scorpia'],
+              enemigos: ['She-Ra', 'Glimmer', 'Bow'],
+              creador: 'Rupaboy'
+            },
+            {
+              nombreSuperHeroe: 'Scorpia',
+              nombreReal: 'Scorpia',
+              edad: 25,
+              planetaOrigen: 'Etheria',
+              debilidad: 'Su tamaño y fuerza la hacen menos ágil',
+              poderes: [
+                'Fuerza sobrehumana',
+                'Tener una cola venenosa',
+                'Habilidades de combate cuerpo a cuerpo'
+              ],
+              aliados: ['Hordak', 'Catra', 'Entrapta'],
+              enemigos: ['She-Ra', 'Glimmer'],
+              creador: 'Rupaboy'
+            }
+          
+        /*
+        {
+          nombreSuperHeroe: 'Array-Man',
+          nombreReal: 'Backup Test',
+          edad: 1,
+          planetaOrigen: 'MongoDB',
+          debilidad: 'Puede no ser un array',
+          poderes: [ 'No se aun', 'Modularizar', 'Menos trabajo de mantenimiento' ],
+          aliados: [ 'Rupaboy' ],
+          enemigos: [ 'Rupaboy' ],
+          creador: 'Rupaboy'
+      },
+      {
+        nombreSuperHeroe: 'Array-Man II La pesadilla del Array',
+          nombreReal: 'Backup Test',
+          edad: 1,
+          planetaOrigen: 'MongoDB',
+          debilidad: 'Puede no ser un array',
+          poderes: [ 'No se aun', 'Modularizar', 'Menos trabajo de mantenimiento' ],
+          aliados: [ 'Rupaboy' ],
+          enemigos: [ 'Rupaboy' ],
+          creador: 'Rupaboy'
+      },
+        {
           nombreSuperHeroe: 'Nippur el Errante',
           nombreReal: 'Nippur de Lagash',
           edad: 41,
@@ -43,8 +195,7 @@ export const arraySuperheroesBackup = [
           aliados: [ 'Ur-El de Elam', 'Hattusil', 'Piritoos', 'Gil Gamesh' ],
           enemigos: [ 'Lugalzagesi de Umma' ],
           creador: 'Rupaboy'
-      }
-          
+      },  
       {
           nombreSuperHeroe: 'Chuck Norris',
           nombreReal: 'Carlos Tula Norris',

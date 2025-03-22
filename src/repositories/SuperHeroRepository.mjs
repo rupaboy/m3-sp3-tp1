@@ -12,7 +12,7 @@ class SuperHeroRepository extends IRepository {
     }
 
     async obtenerTodos() {  //OK
-        return await SuperHero.find();
+        return await SuperHero.find().sort({ nombreSuperHeroe: 1 }) //Orden alfabético!
     }
     
     async buscarPorAtributo(atributo, valor) { //Testing
@@ -29,7 +29,7 @@ class SuperHeroRepository extends IRepository {
 
     async obtenerMasPoderososPlaneta( planeta ) { 
         return await SuperHero.find({
-                edad: { $gt: 30 },
+                edad: { $gt: 20 },
                 planetaOrigen: planeta,
                 $expr: { $gte: [{ $size: "$poderes" }, 2 ]}
             });
@@ -104,11 +104,11 @@ class SuperHeroRepository extends IRepository {
     
     async agregarNuevoArray() { 
 
-        const superheroesCreados = [];
-        for (const heroe of arraySuperheroesBackup) {
-            const hero = new SuperHero(heroe);
-            const heroeNuevo = await hero.save();
-            superheroesCreados.push(heroeNuevo);
+        const superheroesCreados = []; //Crea un array
+        for (const heroe of arraySuperheroesBackup) { //Itera importación
+            const hero = new SuperHero(heroe); //Al constructor
+            const heroeNuevo = await hero.save(); //Guarda cada héroe
+            superheroesCreados.push(heroeNuevo); //Agrega al array original
             }
             console.log('Todos los heroes han sido añadidos')
             return superheroesCreados
