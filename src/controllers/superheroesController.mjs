@@ -12,8 +12,10 @@ import {
     agregarNuevoTemplateSuperheroe,
     agregarNuevoArraySuperheroes,
     editarSuperheroePorId,
+    editarSuperheroePorIdAtributoValor,
     borrarSuperheroePorId,
     borrarSuperheroePorNombre,
+
 
     } from '../services/superheroesService.mjs';
 
@@ -221,6 +223,27 @@ export async function editarSuperheroePorIdController(req, res) {
             error: error.message });
     }
 }
+
+export async function editarSuperheroePorIdAtributoValorController(req, res) {
+    try {
+        const {id, atributo, valor} = req.params;
+        const superheroe = await editarSuperheroePorIdAtributoValor(id, atributo, valor);
+        if (superheroe.length === 0) {
+            return res.status(404).send(
+                { mensaje: 'No se encontraron superhéroes con ese atributo' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroe);
+        res.status(200).json(superheroeFormateado);
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al buscar los superhéroes',
+            error: error.message });
+    }
+}
+
+
+
+
 
 export async function borrarSuperheroePorIdController(req, res) {
     try {

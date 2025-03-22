@@ -90,13 +90,22 @@ class SuperHeroRepository extends IRepository {
         }
        
 
-    async editarPorId(id) { //Testing, devuelve 'after'.
+    async editarPorId(id) { //
         return await SuperHero.findOneAndUpdate(
             { _id: id },
             { $set: { edad: 50 } },
             { returnDocument: 'after' }
         );
     }
+
+    async editarPorIdAtributoValor(id, atributo, valor) { //Testing, devuelve 'after'.
+        return await SuperHero.findOneAndUpdate(
+            { _id: id },
+            { $set: { [atributo]: valor } },
+            { returnDocument: 'after' }
+        );
+    }
+
 
     async borrarPorId(id) { // Testing
         return await SuperHero.findByIdAndDelete(id)
